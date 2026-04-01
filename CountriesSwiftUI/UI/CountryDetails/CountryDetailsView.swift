@@ -99,17 +99,15 @@ private extension CountryDetails {
 private extension CountryDetails {
     func loadedView(_ countryDetails: DBModel.CountryDetails) -> some View {
         List {
-            country.flag.map { url in
+            country.flag.map {
                 flagView(url: url)
             }
             basicInfoSectionView(countryDetails: countryDetails)
-            if countryDetails.currencies.count > 0 {
+            if !countryDetails.currencies.isEmpty {
                 currenciesSectionView(currencies: countryDetails.currencies)
             }
-            if let neighbors = countryDetails.neighbors {
-                if neighbors.count  > 0 {
-                    neighborsSectionView(neighbors: neighbors)
-                }
+            if let neighbors = countryDetails.neighbors, !neighbors.isEmpty {
+                neighborsSectionView(neighbors: neighbors)
             }
         }
         .listStyle(GroupedListStyle())

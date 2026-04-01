@@ -126,7 +126,7 @@ private extension CountriesList {
         }
         .onChange(of: routingState.countryCode, initial: true, { _, code in
             guard let code,
-                  let country = countries.first(where: { $0.alpha3Code == code})
+                  let country = countries.first(where: { $0.alpha3Code == code })
             else { return }
             navigationPath.append(country)
         })
