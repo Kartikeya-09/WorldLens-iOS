@@ -68,7 +68,7 @@ struct CountriesList: View {
 
     @ViewBuilder private var permissionsButton: some View {
         if canRequestPushPermission {
-            Button(action: requestPushPermission, label: { Text("Allow Push") })
+            Button("Allow Push", action: requestPushPermission)
         }
     }
 }
@@ -77,7 +77,7 @@ struct CountriesList: View {
 
 private extension CountriesList {
     func defaultView() -> some View {
-        Text("").onAppear {
+        EmptyView().onAppear {
             if !countries.isEmpty {
                 countriesLoadState = .loaded(())
             }
@@ -131,9 +131,8 @@ private extension CountriesList {
             navigationPath.append(country)
         })
         .onChange(of: navigationPath, { _, path in
-            if !path.isEmpty {
-                routingBinding.wrappedValue.countryCode = nil
-            }
+            guard !path.isEmpty else { return }
+            routingBinding.wrappedValue.countryCode = nil
         })
     }
 }
